@@ -78,7 +78,10 @@ function iferror(cell_ref, onerrorvalue) {
         if (typeof value === 'number' && (isNaN(value) || value === Infinity || value === -Infinity)) {
             return onerrorvalue.calc();
         }
-        return value === null ? 0 : value;
+        if (typeof value === 'undefined' || value === null) {
+            return 0;
+        }
+        return value;
     } catch (e) {
         return onerrorvalue.calc();
     }
