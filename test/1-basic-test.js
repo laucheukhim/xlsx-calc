@@ -2147,6 +2147,12 @@ describe('XLSX_CALC', function() {
             assert.equal(workbook.Sheets.Sheet1.A2.v, 'Error');
             assert.equal(workbook.Sheets.Sheet1.A2.t, 's');
         });
+        it('returns 0 when in reference to an empty cell', function () {
+            delete workbook.Sheets.Sheet1.A1;
+            workbook.Sheets.Sheet1.A2 = { f: "IFERROR(A1, \"Error\")" };
+            XLSX_CALC(workbook);
+            assert.equal(workbook.Sheets.Sheet1.A2.v, 0);
+        })
     });
 
     describe('HLOOKUP', function () {
